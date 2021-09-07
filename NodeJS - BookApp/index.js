@@ -42,7 +42,9 @@ var books = [
 app.get('/', function (req, res) {
     //check if user session exits
     if (req.session.user) {
-        res.render('/home');
+        res.render('home',{
+            books: books
+        });
     } else
         // res.render('login');
         res.render('login',{displayUserBlock:'none',displayPwdBlock:'none'});
@@ -50,7 +52,7 @@ app.get('/', function (req, res) {
 
 app.post('/login', function (req, res) {
     if (req.session.user) {
-        res.render('/home');
+        res.render('home');
     } else {
         console.log("Req Body : ", req.body);
         Users.filter(user => {
@@ -82,12 +84,34 @@ app.get('/create', function (req, res) {
     if (!req.session.user) {
         res.redirect('/');
     } else {
-        res.render('create');
+        res.render('create',{bookid:'',booktitle:'',bookauthor:'',msg:'',display:'none'});
     }
 });
 
 app.post('/create', function (req, res) {
-    // add your code
+    if (!req.session.user) {
+        res.redirect('/');
+    } else {
+        console.log("Req Body : ", req.body);
+        let bookid = req.body.bookid;
+        let booktitle = req.body.booktitle;
+        let bookauthor = req.body.bookauthor;
+        let bookArr = books.filter(book => book['BookID'] === bookid);
+        console.log('Book found:'+bookArr);    
+        if(bookArr.length == 0) {
+            let book = {
+                "BookID":bookid,
+                "Title":booktitle,
+                "Author":bookauthor
+            };
+            books.push(book);
+            return res.redirect('/home');
+
+        } else {
+            return res.render('create',{bookid:bookid,booktitle:booktitle,bookauthor:bookauthor,msg:'Book Id already exists',display:'block'});
+        }
+        
+    }
 });
 
 app.get('/delete', function (req, res) {
