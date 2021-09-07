@@ -44,7 +44,8 @@ app.get('/', function (req, res) {
     if (req.session.user) {
         res.render('/home');
     } else
-        res.render('login');
+        // res.render('login');
+        res.render('login',{displayUserBlock:'none',displayPwdBlock:'none'});
 });
 
 app.post('/login', function (req, res) {
@@ -56,6 +57,10 @@ app.post('/login', function (req, res) {
             if (user.username === req.body.username && user.password === req.body.password) {
                 req.session.user = user;
                 res.redirect('/home');
+            } else if(user.username !== req.body.username) {
+                res.render('login',{displayUserBlock:'block',displayPwdBlock:'none'});
+            } else if(user.password !== req.body.password) {
+                res.render('login',{displayUserBlock:'none',displayPwdBlock:'block'});
             }
         });
     }

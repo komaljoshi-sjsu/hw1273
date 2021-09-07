@@ -16,9 +16,11 @@
                     <form action="http://127.0.0.1:3000/login" method="post" id="Login">
                         <div class="form-group">
                             <input type="text" class="form-control" name="username" placeholder="Username">
+                            <p style="color:red;display:<%= displayUserBlock %>">Incorrect Username Entered</p>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" placeholder="Password">
+                            <p style="color:red;display:<%= displayPwdBlock %>">Incorrect Password Entered</p>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>        
                     </form>         
