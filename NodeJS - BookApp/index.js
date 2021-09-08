@@ -92,12 +92,10 @@ app.post('/create', function (req, res) {
     if (!req.session.user) {
         res.redirect('/');
     } else {
-        console.log("Req Body : ", req.body);
         let bookid = req.body.bookid;
         let booktitle = req.body.booktitle;
         let bookauthor = req.body.bookauthor;
         let bookArr = books.filter(book => book['BookID'] === bookid);
-        console.log('Book found:'+bookArr);    
         if(bookArr.length == 0) {
             let book = {
                 "BookID":bookid,
@@ -108,6 +106,7 @@ app.post('/create', function (req, res) {
             return res.redirect('/home');
 
         } else {
+            console.log("booktitle: ", booktitle);
             return res.render('create',{bookid:bookid,booktitle:booktitle,bookauthor:bookauthor,msg:'Book Id already exists',display:'block'});
         }
         

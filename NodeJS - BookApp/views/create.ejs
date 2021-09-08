@@ -15,14 +15,14 @@
                     </div>
                     <form action="http://127.0.0.1:3000/create" method="post" id="Create">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="bookid" placeholder="Book Id" value=<%= bookid %>>
+                            <input type="text" class="form-control" name="bookid" placeholder="Book Id" required pattern="[0-9]{1,5}" title="Book Id should only have numbers of min 1 and max 5 length." autofocus value="<%=bookid%>">
                             <p style="color:red;display:<%= display %>"><%= msg %></p>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="booktitle" placeholder="Book Title" value=<%= booktitle %>>
+                            <input type="text" class="form-control" name="booktitle" required placeholder="Book Title" pattern="[A-Za-z0-9\s]{1,40}" title="Book Title should only have alphanumeric characters and space. Min length 1 and Max length 40 is permitted." value="<%=booktitle%>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="bookauthor" placeholder="Book Author" value=<%= bookauthor %>>
+                            <input type="text" class="form-control" name="bookauthor" required placeholder="Book Author" pattern="[A-Za-z\s]{1,25}" title="Name should only have aplhabets and spaces. Max length is 25." value="<%=bookauthor%>">
                         </div>
                         <button type="submit" class="btn btn-primary">Create</button>        
                     </form>         
