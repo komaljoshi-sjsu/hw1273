@@ -15,11 +15,11 @@
                     </div>
                     <form action="http://127.0.0.1:3000/login" method="post" id="Login">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username">
+                            <input type="text" class="form-control" required name="username" placeholder="Username" value="<%=username%>">
                             <p style="color:red;display:<%= displayUserBlock %>">Incorrect Username Entered</p>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" required name="password" placeholder="Password" value="<%=password%>">
                             <p style="color:red;display:<%= displayPwdBlock %>">Incorrect Password Entered</p>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>        

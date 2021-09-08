@@ -47,7 +47,18 @@ app.get('/', function (req, res) {
         });
     } else
         // res.render('login');
-        res.render('login',{displayUserBlock:'none',displayPwdBlock:'none'});
+        res.render('login',{displayUserBlock:'none',displayPwdBlock:'none',username:req.body.username,password:req.body.password});
+});
+
+app.get('/login', function (req, res) {
+    //check if user session exits
+    if (req.session.user) {
+        res.render('home',{
+            books: books
+        });
+    } else
+        // res.render('login');
+        res.redirect('/');
 });
 
 app.post('/login', function (req, res) {
@@ -60,9 +71,9 @@ app.post('/login', function (req, res) {
                 req.session.user = user;
                 res.redirect('/home');
             } else if(user.username !== req.body.username) {
-                res.render('login',{displayUserBlock:'block',displayPwdBlock:'none'});
+                res.render('login',{displayUserBlock:'block',displayPwdBlock:'none',username:req.body.username,password:req.body.password});
             } else if(user.password !== req.body.password) {
-                res.render('login',{displayUserBlock:'none',displayPwdBlock:'block'});
+                res.render('login',{displayUserBlock:'none',displayPwdBlock:'block',username:req.body.username,password:req.body.password});
             }
         });
     }
@@ -118,13 +129,31 @@ app.get('/delete', function (req, res) {
     if (!req.session.user) {
         res.redirect('/');
     } else {
-        res.render('delete');
+        res.render('delete',{bookid:'',msg:'',display:'none'});
     }
 });
 
 app.post('/delete', function (req, res) {
-    // add your code here
-})
+    let bookid = req.body.bookid;
+    console.log('You entered:'+bookid);
+    let bookArr = books.filter(book => book['BookID'] !== bookid);
+    console.log('bookArr size is:'+bookArr.length+' books actual size is:'+books.length);
+    if(bookArr.length == books.length) {
+        res.render('delete',{bookid:bookid,msg:'Book id is not present.',display:'block'});
+    } else {
+        books = bookArr.slice();
+        return res.redirect('/home');
+    }
+});
+
+app.get('/logout', function (req, res) {
+    if (!req.session.user) {
+        res.redirect('/');
+    } else {
+        req.session.destroy();
+        res.redirect('/');
+    }
+});
 
 var server = app.listen(3000, function () {
     console.log("Server listening on port 3000");

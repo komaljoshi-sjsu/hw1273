@@ -1,1 +1,31 @@
-// add your code here
+<html>
+    <head>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body id="BookDelForm">
+        <div class="container">
+            <div class="login-form">
+                <div class="main-div">
+                    <div class="panel">
+                        <h2>Delete Book</h2>
+                        <p>Please enter book id that you want to delete</p>
+                    </div>
+                    <form action="http://127.0.0.1:3000/delete" method="post" id="Create">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="bookid" placeholder="Book Id" required pattern="[0-9]{1,5}" title="Book Id should only have numbers of min 1 and max 5 length." autofocus value="<%=bookid%>">
+                            <p style="color:red;display:<%= display %>"><%= msg %></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Delete</button>        
+                    </form>         
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
